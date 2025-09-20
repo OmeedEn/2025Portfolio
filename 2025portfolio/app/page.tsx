@@ -475,9 +475,9 @@ export default function Portfolio() {
 
   const experiences = [
     {
-      title: "Senior Engineering Manager",
-      company: "Tech Innovations Inc.",
-      period: "2022 - Present",
+      title: "Software Engineering",
+      company: "Dinan Solutions",
+      period: "2024 - Present",
       description:
         "Leading a team of 12 engineers across 3 product lines. Architected scalable microservices handling 1M+ daily users.",
       achievements: [
@@ -487,9 +487,9 @@ export default function Portfolio() {
       ],
     },
     {
-      title: "Lead Software Developer",
-      company: "Digital Solutions Corp",
-      period: "2020 - 2022",
+      title: "Founding Engineer",
+      company: "VoyaxHealth",
+      period: "2025 - Present",
       description:
         "Spearheaded full-stack development of customer-facing applications using React, Node.js, and AWS.",
       achievements: [
@@ -499,9 +499,9 @@ export default function Portfolio() {
       ],
     },
     {
-      title: "Senior Full Stack Developer",
-      company: "StartupName",
-      period: "2018 - 2020",
+      title: "Software Internship",
+      company: "Degreely",
+      period: "2023 - 2024",
       description:
         "Built MVP from ground up, scaling to 100K users. Implemented CI/CD pipelines and modern development practices.",
       achievements: [
@@ -580,7 +580,7 @@ export default function Portfolio() {
                 transition={{ delay: 0.5, duration: 0.8 }}
                 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-blue-300 bg-clip-text text-transparent"
               >
-                Alex Johnson
+                Omeed Enshaie
               </motion.h1>
 
               <motion.p
@@ -589,7 +589,7 @@ export default function Portfolio() {
                 transition={{ delay: 0.7, duration: 0.6 }}
                 className="text-xl md:text-2xl text-gray-300 mb-8 font-light"
               >
-                Senior Engineering Manager & Full-Stack Developer
+                Software Engineer & Full-Stack Developer
               </motion.p>
 
               <motion.p
@@ -598,8 +598,8 @@ export default function Portfolio() {
                 transition={{ delay: 0.9, duration: 0.6 }}
                 className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
               >
-                Leading high-performance engineering teams to build scalable,
-                user-centric applications.
+                Leading high-performance teams to build scalable, user-centric
+                applications.
               </motion.p>
 
               <motion.div
@@ -625,7 +625,7 @@ export default function Portfolio() {
                 transition={{ delay: 1.5, duration: 0.6 }}
                 className="text-gray-500 text-sm mt-16"
               >
-                © 2024 Alex Johnson. Crafted with passion and Three.js magic.
+                © 2025 Omeed Enshaie. Crafted with passion.
               </motion.p>
             </motion.div>
           )}
@@ -724,21 +724,12 @@ export default function Portfolio() {
                     <div className="space-y-6">
                       <div>
                         <h4 className="text-lg font-semibold text-white mb-1">
-                          Master of Computer Science
+                          Bachelors of Science, Computer Science
                         </h4>
                         <p className="text-blue-400 font-medium mb-1">
-                          Stanford University
+                          California State University, Long Beach
                         </p>
-                        <p className="text-gray-400 text-sm">2016 - 2018</p>
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-semibold text-white mb-1">
-                          Bachelor of Software Engineering
-                        </h4>
-                        <p className="text-blue-400 font-medium mb-1">
-                          UC Berkeley
-                        </p>
-                        <p className="text-gray-400 text-sm">2012 - 2016</p>
+                        <p className="text-gray-400 text-sm">2021 - 2025</p>
                       </div>
                     </div>
                   </motion.div>
@@ -784,6 +775,12 @@ export default function Portfolio() {
                           <AnimatedChip color="orange" delay={0.7}>
                             AWS
                           </AnimatedChip>
+                          <AnimatedChip color="purple" delay={0.8}>
+                            Azure
+                          </AnimatedChip>
+                          <AnimatedChip color="green" delay={0.9}>
+                            SQL
+                          </AnimatedChip>
                         </div>
                       </div>
                     </div>
@@ -825,24 +822,24 @@ export default function Portfolio() {
                   <div className="grid md:grid-cols-3 gap-6">
                     {[
                       {
-                        href: "mailto:alex@example.com",
+                        href: "mailto:oenshaie@gmail.com",
                         icon: Mail,
                         title: "Email",
-                        subtitle: "alex@example.com",
+                        subtitle: "oenshaie@gmail.com",
                         color: "blue",
                       },
                       {
-                        href: "https://linkedin.com/in/alexjohnson",
+                        href: "https://www.linkedin.com/in/omeed-enshaie/",
                         icon: Linkedin,
                         title: "LinkedIn",
-                        subtitle: "/in/alexjohnson",
+                        subtitle: "/in/omeed-enshaie",
                         color: "purple",
                       },
                       {
-                        href: "https://github.com",
+                        href: "https://github.com/OmeedEn",
                         icon: Github,
                         title: "GitHub",
-                        subtitle: "/alexj",
+                        subtitle: "/OmeedEn",
                         color: "gray",
                       },
                     ].map((item, index) => (
