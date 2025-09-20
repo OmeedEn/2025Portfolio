@@ -37,6 +37,37 @@ export default function Portfolio() {
   const raycasterRef = useRef<THREE.Raycaster>(new THREE.Raycaster());
   const intersectedObjectRef = useRef<THREE.Object3D | null>(null);
 
+  // Custom scrollbar styles
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        transition: background 0.3s ease;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      /* Firefox */
+      .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   useEffect(() => {
     const currentMount = mountRef.current;
     if (!currentMount) return;
@@ -618,7 +649,7 @@ export default function Portfolio() {
                     Leadership Experience
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="flex-grow overflow-y-auto px-8 pb-8 space-y-6">
+                <CardContent className="flex-grow overflow-y-auto px-8 pb-8 space-y-6 custom-scrollbar">
                   {experiences.map((exp, index) => (
                     <motion.div
                       key={index}
@@ -681,7 +712,7 @@ export default function Portfolio() {
                     Education & Skills
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="flex-grow overflow-y-auto p-8 grid md:grid-cols-2 gap-8">
+                <CardContent className="flex-grow overflow-y-auto p-8 grid md:grid-cols-2 gap-8 custom-scrollbar">
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
