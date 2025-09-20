@@ -200,19 +200,19 @@ export default function Portfolio() {
     delay = 0,
   }) => (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8, y: 10 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      whileHover={{ scale: 1.05, y: -2 }}
-      whileTap={{ scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       transition={{
-        duration: 0.4,
+        duration: 0.3,
         delay,
         type: "spring",
-        stiffness: 300,
-        damping: 20,
+        stiffness: 400,
+        damping: 25,
       }}
       className={`
-        relative px-4 py-2 rounded-lg font-medium text-sm cursor-default
+        relative px-4 py-2 rounded-lg font-medium text-sm cursor-default inline-block
         bg-gradient-to-r backdrop-blur-sm border shadow-lg
         ${
           color === "blue"
@@ -318,16 +318,14 @@ export default function Portfolio() {
   );
 
   const BackButton = () => (
-    <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-6 left-6 text-gray-400 hover:text-white hover:bg-white/10 z-20"
-        onClick={() => setActiveView("home")}
-      >
-        <ArrowLeft className="w-5 h-5" />
-      </Button>
-    </motion.div>
+    <Button
+      variant="ghost"
+      size="icon"
+      className="text-gray-400 hover:text-white hover:bg-white/10 transition-colors duration-200"
+      onClick={() => setActiveView("home")}
+    >
+      <ArrowLeft className="w-5 h-5" />
+    </Button>
   );
 
   return (
@@ -425,7 +423,9 @@ export default function Portfolio() {
               className="w-full max-w-4xl"
             >
               <Card className="relative bg-white/5 backdrop-blur-lg border-white/10 h-[70vh] flex flex-col">
-                <BackButton />
+                <div className="absolute top-6 left-6 z-30">
+                  <BackButton />
+                </div>
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-center pt-4">
                     Leadership Experience
@@ -486,7 +486,9 @@ export default function Portfolio() {
               className="w-full max-w-4xl"
             >
               <Card className="relative bg-white/5 backdrop-blur-lg border-white/10 h-[70vh] flex flex-col">
-                <BackButton />
+                <div className="absolute top-6 left-6 z-30">
+                  <BackButton />
+                </div>
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-center pt-4">
                     Education & Skills
@@ -584,7 +586,9 @@ export default function Portfolio() {
               className="w-full max-w-5xl"
             >
               <Card className="relative bg-white/5 backdrop-blur-lg border-white/10">
-                <BackButton />
+                <div className="absolute top-6 left-6 z-30">
+                  <BackButton />
+                </div>
                 <CardHeader>
                   <CardTitle className="text-3xl font-bold text-center pt-4">
                     Let&apos;s Connect
