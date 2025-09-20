@@ -33,6 +33,9 @@ interface NavButtonProps {
 export default function Portfolio() {
   const mountRef = useRef<HTMLDivElement>(null);
   const [activeView, setActiveView] = useState("home");
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const raycasterRef = useRef<THREE.Raycaster>(new THREE.Raycaster());
+  const intersectedObjectRef = useRef<THREE.Object3D | null>(null);
 
   useEffect(() => {
     const currentMount = mountRef.current;
@@ -52,95 +55,209 @@ export default function Portfolio() {
     renderer.setClearColor(0x000000, 0);
     currentMount.appendChild(renderer.domElement);
 
-    // Enhanced particle system
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1200;
-    const posArray = new Float32Array(particlesCount * 3);
-    const colorsArray = new Float32Array(particlesCount * 3);
-    const sizesArray = new Float32Array(particlesCount);
+    // Initialize raycaster and mouse
+    const raycaster = new THREE.Raycaster();
+    raycasterRef.current = raycaster;
+    const mouse = new THREE.Vector2();
 
-    for (let i = 0; i < particlesCount; i++) {
-      // Position
-      posArray[i * 3] = (Math.random() - 0.5) * 15;
-      posArray[i * 3 + 1] = (Math.random() - 0.5) * 15;
-      posArray[i * 3 + 2] = (Math.random() - 0.5) * 15;
+    // Create computer science themed particle system
+    const createDataStream = () => {
+      const geometry = new THREE.BufferGeometry();
+      const particleCount = 800;
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+      const sizes = new Float32Array(particleCount);
 
-      // Color gradient from blue to purple to cyan
-      const t = Math.random();
-      colorsArray[i * 3] = 0.2 + t * 0.4; // R
-      colorsArray[i * 3 + 1] = 0.5 + t * 0.4; // G
-      colorsArray[i * 3 + 2] = 0.9; // B
+      // Binary data stream effect
+      for (let i = 0; i < particleCount; i++) {
+        // Create flowing data streams
+        positions[i * 3] = (Math.random() - 0.5) * 20; // x
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 20; // y
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 20; // z
 
-      // Size variation
-      sizesArray[i] = Math.random() * 3 + 1;
-    }
+        // Green/blue matrix-like colors
+        const colorVariant = Math.random();
+        if (colorVariant < 0.7) {
+          // Green matrix colors
+          colors[i * 3] = 0.1; // R
+          colors[i * 3 + 1] = 0.8 + Math.random() * 0.2; // G
+          colors[i * 3 + 2] = 0.2; // B
+        } else {
+          // Blue circuit colors
+          colors[i * 3] = 0.1; // R
+          colors[i * 3 + 1] = 0.4; // G
+          colors[i * 3 + 2] = 0.8 + Math.random() * 0.2; // B
+        }
 
-    particlesGeometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(posArray, 3)
-    );
-    particlesGeometry.setAttribute(
-      "color",
-      new THREE.BufferAttribute(colorsArray, 3)
-    );
-    particlesGeometry.setAttribute(
-      "size",
-      new THREE.BufferAttribute(sizesArray, 1)
-    );
+        sizes[i] = Math.random() * 4 + 1;
+      }
 
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.03,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.8,
-      sizeAttenuation: true,
-    });
+      geometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(positions, 3)
+      );
+      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+      geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
 
-    const particlesMesh = new THREE.Points(
-      particlesGeometry,
-      particlesMaterial
-    );
-    scene.add(particlesMesh);
-
-    // Add floating geometric shapes with glow effect
-    const shapes: THREE.Mesh[] = [];
-    const shapeGeometries = [
-      new THREE.OctahedronGeometry(0.15, 0),
-      new THREE.TetrahedronGeometry(0.15, 0),
-      new THREE.IcosahedronGeometry(0.12, 0),
-      new THREE.BoxGeometry(0.2, 0.2, 0.2),
-    ];
-
-    for (let i = 0; i < 20; i++) {
-      const geometry =
-        shapeGeometries[Math.floor(Math.random() * shapeGeometries.length)];
-      const hue = Math.random();
-      const material = new THREE.MeshBasicMaterial({
-        color: new THREE.Color().setHSL(0.6 + hue * 0.3, 0.8, 0.6),
+      const material = new THREE.PointsMaterial({
+        size: 0.05,
+        vertexColors: true,
         transparent: true,
-        opacity: 0.4,
-        wireframe: true,
+        opacity: 0.8,
+        sizeAttenuation: true,
       });
 
-      const shape = new THREE.Mesh(geometry, material);
-      shape.position.set(
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 12,
-        (Math.random() - 0.5) * 12
-      );
-      shape.userData = {
-        originalPosition: shape.position.clone(),
-        rotationSpeed: Math.random() * 0.02 + 0.005,
-        floatSpeed: Math.random() * 0.5 + 0.3,
-        floatAmplitude: Math.random() * 0.3 + 0.1,
-      };
-      shapes.push(shape);
-      scene.add(shape);
-    }
+      return new THREE.Points(geometry, material);
+    };
 
+    const dataStream = createDataStream();
+    scene.add(dataStream);
+
+    // Create CS-themed floating objects
+    const csObjects: THREE.Mesh[] = [];
+
+    // Create various CS-themed geometries
+    const createCSObjects = () => {
+      const objects: THREE.Mesh[] = [];
+
+      // Binary cubes (representing data)
+      for (let i = 0; i < 15; i++) {
+        const size = Math.random() * 0.3 + 0.1;
+        const geometry = new THREE.BoxGeometry(size, size, size);
+        const material = new THREE.MeshBasicMaterial({
+          color: new THREE.Color().setHSL(0.3 + Math.random() * 0.2, 0.8, 0.6),
+          transparent: true,
+          opacity: 0.7,
+          wireframe: true,
+        });
+
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position.set(
+          (Math.random() - 0.5) * 15,
+          (Math.random() - 0.5) * 15,
+          (Math.random() - 0.5) * 15
+        );
+
+        cube.userData = {
+          originalPosition: cube.position.clone(),
+          rotationSpeed: Math.random() * 0.02 + 0.005,
+          floatSpeed: Math.random() * 0.5 + 0.3,
+          floatAmplitude: Math.random() * 0.5 + 0.2,
+          type: "data",
+          mouseInfluence: Math.random() * 2 + 1,
+        };
+
+        objects.push(cube);
+        scene.add(cube);
+      }
+
+      // Network nodes (octahedrons)
+      for (let i = 0; i < 10; i++) {
+        const geometry = new THREE.OctahedronGeometry(0.2, 0);
+        const material = new THREE.MeshBasicMaterial({
+          color: new THREE.Color().setHSL(0.6, 0.9, 0.7),
+          transparent: true,
+          opacity: 0.8,
+          wireframe: true,
+        });
+
+        const node = new THREE.Mesh(geometry, material);
+        node.position.set(
+          (Math.random() - 0.5) * 12,
+          (Math.random() - 0.5) * 12,
+          (Math.random() - 0.5) * 12
+        );
+
+        node.userData = {
+          originalPosition: node.position.clone(),
+          rotationSpeed: Math.random() * 0.03 + 0.01,
+          floatSpeed: Math.random() * 0.4 + 0.2,
+          floatAmplitude: Math.random() * 0.3 + 0.1,
+          type: "network",
+          mouseInfluence: Math.random() * 3 + 2,
+        };
+
+        objects.push(node);
+        scene.add(node);
+      }
+
+      // Algorithm trees (tetrahedrons)
+      for (let i = 0; i < 8; i++) {
+        const geometry = new THREE.TetrahedronGeometry(0.15, 0);
+        const material = new THREE.MeshBasicMaterial({
+          color: new THREE.Color().setHSL(0.8, 0.8, 0.6),
+          transparent: true,
+          opacity: 0.6,
+          wireframe: true,
+        });
+
+        const tree = new THREE.Mesh(geometry, material);
+        tree.position.set(
+          (Math.random() - 0.5) * 10,
+          (Math.random() - 0.5) * 10,
+          (Math.random() - 0.5) * 10
+        );
+
+        tree.userData = {
+          originalPosition: tree.position.clone(),
+          rotationSpeed: Math.random() * 0.025 + 0.01,
+          floatSpeed: Math.random() * 0.6 + 0.4,
+          floatAmplitude: Math.random() * 0.4 + 0.2,
+          type: "algorithm",
+          mouseInfluence: Math.random() * 2.5 + 1.5,
+        };
+
+        objects.push(tree);
+        scene.add(tree);
+      }
+
+      return objects;
+    };
+
+    csObjects.push(...createCSObjects());
     camera.position.z = 5;
 
-    // Enhanced animation loop
+    // Mouse interaction handlers
+    const onMouseMove = (event: MouseEvent) => {
+      // Convert mouse position to normalized device coordinates (-1 to +1)
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      mouseRef.current = { x: mouse.x, y: mouse.y };
+
+      // Update raycaster
+      raycaster.setFromCamera(mouse, camera);
+
+      // Check for intersections
+      const intersects = raycaster.intersectObjects(csObjects);
+
+      if (intersects.length > 0) {
+        const intersected = intersects[0].object;
+
+        if (intersectedObjectRef.current !== intersected) {
+          // Reset previous object
+          if (intersectedObjectRef.current) {
+            intersectedObjectRef.current.scale.setScalar(1);
+          }
+
+          // Scale up new intersected object
+          intersected.scale.setScalar(1.2);
+          intersectedObjectRef.current = intersected;
+          currentMount.style.cursor = "pointer";
+        }
+      } else {
+        // Reset if no intersection
+        if (intersectedObjectRef.current) {
+          intersectedObjectRef.current.scale.setScalar(1);
+          intersectedObjectRef.current = null;
+          currentMount.style.cursor = "default";
+        }
+      }
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+
+    // Enhanced animation loop with mouse interaction
     let animationId: number;
     const clock = new THREE.Clock();
 
@@ -148,27 +265,91 @@ export default function Portfolio() {
       animationId = requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
-      // Enhanced particle rotation
-      particlesMesh.rotation.y += 0.0008;
-      particlesMesh.rotation.x += 0.0005;
+      // Animate data stream particles
+      dataStream.rotation.y += 0.001;
+      dataStream.rotation.x += 0.0005;
 
-      // Animate shapes with more complex movements
-      shapes.forEach((shape, index) => {
-        const userData = shape.userData;
-        shape.rotation.x += userData.rotationSpeed;
-        shape.rotation.y += userData.rotationSpeed;
-        shape.rotation.z += userData.rotationSpeed * 0.5;
+      // Make data stream flow downward like code
+      const positions = dataStream.geometry.attributes.position
+        .array as Float32Array;
+      for (let i = 1; i < positions.length; i += 3) {
+        positions[i] -= 0.01; // Move particles down
+        if (positions[i] < -10) {
+          positions[i] = 10; // Reset to top
+        }
+      }
+      dataStream.geometry.attributes.position.needsUpdate = true;
 
-        // Float movement
-        shape.position.y =
+      // Animate CS-themed objects with mouse interaction
+      csObjects.forEach((object, index) => {
+        const userData = object.userData;
+
+        // Basic rotation
+        object.rotation.x += userData.rotationSpeed;
+        object.rotation.y += userData.rotationSpeed;
+        object.rotation.z += userData.rotationSpeed * 0.5;
+
+        // Floating movement
+        const baseY =
           userData.originalPosition.y +
           Math.sin(elapsedTime * userData.floatSpeed + index) *
             userData.floatAmplitude;
-        shape.position.x =
+        const baseX =
           userData.originalPosition.x +
           Math.cos(elapsedTime * userData.floatSpeed * 0.7 + index) *
             userData.floatAmplitude *
             0.5;
+
+        // Mouse interaction - objects are attracted to mouse
+        const mouseInfluence = userData.mouseInfluence;
+        const mouseStrength = 0.5;
+
+        // Convert mouse position to 3D world coordinates
+        const mouseVector = new THREE.Vector3(
+          mouseRef.current.x * 5,
+          mouseRef.current.y * 5,
+          0
+        );
+
+        // Calculate distance to mouse
+        const distance = object.position.distanceTo(mouseVector);
+        const maxDistance = 8;
+
+        if (distance < maxDistance) {
+          // Create attraction effect
+          const attraction = (maxDistance - distance) / maxDistance;
+          const direction = mouseVector
+            .clone()
+            .sub(object.position)
+            .normalize();
+
+          object.position.x =
+            baseX + direction.x * attraction * mouseInfluence * mouseStrength;
+          object.position.y =
+            baseY + direction.y * attraction * mouseInfluence * mouseStrength;
+        } else {
+          // Return to original floating position
+          object.position.x += (baseX - object.position.x) * 0.05;
+          object.position.y += (baseY - object.position.y) * 0.05;
+        }
+
+        // Special behavior based on object type
+        if (userData.type === "network") {
+          // Network nodes pulse
+          const pulse = Math.sin(elapsedTime * 2 + index) * 0.1 + 1;
+          if (object !== intersectedObjectRef.current) {
+            object.scale.setScalar(pulse);
+          }
+        } else if (userData.type === "data") {
+          // Data cubes have digital glitch effect
+          if (Math.random() < 0.01) {
+            const material = object.material as THREE.MeshBasicMaterial;
+            material.opacity = Math.random() * 0.5 + 0.5;
+          }
+        } else if (userData.type === "algorithm") {
+          // Algorithm trees rotate in complex patterns
+          object.rotation.z += Math.sin(elapsedTime + index) * 0.01;
+        }
       });
 
       renderer.render(scene, camera);
@@ -185,11 +366,17 @@ export default function Portfolio() {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", onMouseMove);
       cancelAnimationFrame(animationId);
       if (currentMount && renderer.domElement) {
         currentMount.removeChild(renderer.domElement);
       }
       renderer.dispose();
+
+      // Reset cursor
+      if (currentMount) {
+        currentMount.style.cursor = "default";
+      }
     };
   }, []);
 
