@@ -15,9 +15,9 @@ export const experiences: Experience[] = [
       "Developed an application using different JavaScript frameworks, enhancing user engagement and streamlining automated workflows.",
     achievements: [
       "Implemented secure authentication with Azure AD, Key Vault, and utilizing OAuth/JWT tokens",
-      "Created an overarching design system in Figma, speeding up implementation by 25%",
+      "Created an overarching design system in Figma, speeding up implementation",
       "Designed the architecture of the application using a Kubernetes model and microservices",
-      "Built a robust Azure DevOps pipeline to import artifacts for private libraries reducing deployment time by 50%",
+      "Built a robust Azure DevOps pipeline to import artifacts for private libraries reducing deployment time",
     ],
   },
   {
