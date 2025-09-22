@@ -479,11 +479,12 @@ export default function Portfolio() {
       company: "Dinan Solutions",
       period: "2024 - Present",
       description:
-        "Leading a team of 12 engineers across 3 product lines. Architected scalable microservices handling 1M+ daily users.",
+        "Developed an application using different JavaScript frameworks, enhancing user engagement and streamlining automated workflows.",
       achievements: [
-        "40% performance improvement",
-        "Team growth from 6 to 12",
-        "Zero-downtime deployments",
+        "Implemented secure authentication with Azure AD, Key Vault, and utilizing OAuth/JWT tokens",
+        "Created an overarching design system in Figma, speeding up implementation by 25%",
+        "Designed the architecture of the application using a Kubernetes model and microservices",
+        "Built a robust Azure DevOps pipeline to import artifacts for private libraries reducing deployment time by 50%",
       ],
     },
     {
@@ -491,11 +492,11 @@ export default function Portfolio() {
       company: "VoyaxHealth",
       period: "2025 - Present",
       description:
-        "Spearheaded full-stack development of customer-facing applications using React, Node.js, and AWS.",
+        "Created a health monitoring MVP from the ground up using React, Node.js, and AWS to create a scalable solution for travelers.",
       achievements: [
-        "Led 8-person development team",
-        "Reduced load times by 60%",
-        "Mentored 5 junior developers",
+        "Led the frontend work using Architectural patterns and best practices",
+        "Implemented endpoints by integrating with existing AWS Lambda functions to manage patient data securely",
+        "Maintained documentation and tracked progress via Jira, GitHub, and participated in weekly Agile sprints",
       ],
     },
     {
@@ -503,11 +504,11 @@ export default function Portfolio() {
       company: "Degreely",
       period: "2023 - 2024",
       description:
-        "Built MVP from ground up, scaling to 100K users. Implemented CI/CD pipelines and modern development practices.",
+        "Contributed to a degree platform by implementing CI/CD pipelines and modern development practices.",
       achievements: [
-        "0 to 100K users",
-        "Built entire tech stack",
-        "Established dev culture",
+        "Demonstrated knowledge in Redux for state management, PHP for server-side scripting",
+        "Spearheaded the development of new API endpoints utilizing PHP and many UI updates using React.js",
+        "Established great team culture",
       ],
     },
   ];
