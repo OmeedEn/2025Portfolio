@@ -1,2 +1,2 @@
 # 2025Portfolio
-new portfolio, ai generated
+new portfolio for the 2025
