@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, ReactNode } from "react";
 import * as THREE from "three";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -730,7 +731,22 @@ export default function Portfolio() {
                         <p className="text-blue-400 font-medium mb-1">
                           California State University, Long Beach
                         </p>
-                        <p className="text-gray-400 text-sm">2021 - 2025</p>
+                        <p className="text-gray-400 text-sm mb-4">
+                          2021 - 2025
+                        </p>
+                        <div className="relative overflow-hidden rounded-lg border border-white/20">
+                          <Image
+                            src="/csulb_campus.jpg"
+                            alt="California State University, Long Beach Campus"
+                            width={400}
+                            height={192}
+                            className="w-full h-48 object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                          <div className="absolute bottom-3 left-3 text-white">
+                            <p className="text-sm font-medium">CSULB</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </motion.div>
