@@ -9,38 +9,52 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: "AI Portfolio Assistant",
+    title: "DegreeMate",
     description:
-      "An intelligent portfolio management system using React and machine learning algorithms to optimize user engagement and project showcasing.",
-    technologies: ["React", "Node.js", "Python", "TensorFlow", "AWS"],
-    githubUrl: "https://github.com/OmeedEn/ai-portfolio",
-    liveUrl: "https://ai-portfolio-demo.vercel.app",
+      "Developed a full-stack web application for CSULB students to streamline degree planning, improving user experience and accessibility with AI.",
+    technologies: ["Next.js", "Hono.js", "Node.js", "Docker", "DigitalOcean"],
+    githubUrl: "private",
     featured: true,
   },
   {
-    title: "E-Commerce Platform",
+    title: "App4Apps",
     description:
-      "Full-stack e-commerce solution with real-time inventory management, payment processing, and analytics dashboard.",
-    technologies: ["Next.js", "PostgreSQL", "Stripe", "Redis", "Docker"],
-    githubUrl: "https://github.com/OmeedEn/ecommerce-platform",
-    liveUrl: "https://ecommerce-demo.netlify.app",
-    featured: true,
-  },
-  {
-    title: "Data Visualization Tool",
-    description:
-      "Interactive data visualization platform for business analytics with real-time chart updates and custom dashboard creation.",
-    technologies: ["React", "D3.js", "Express", "MongoDB", "Socket.io"],
-    githubUrl: "https://github.com/OmeedEn/data-viz-tool",
-    liveUrl: "https://dataviz-demo.herokuapp.com",
+      "School ranking application with real-time school updates, integration with applications, and essays for students applying to schools.",
+    technologies: ["Next.js", "Node.js", "Express.js", "Supabase"],
+    githubUrl: "private",
     featured: false,
   },
   {
-    title: "Task Management API",
+    title: "Skin Cancer Detection App",
     description:
-      "RESTful API for task management with user authentication, real-time notifications, and team collaboration features.",
-    technologies: ["Node.js", "Express", "JWT", "PostgreSQL", "WebSocket"],
-    githubUrl: "https://github.com/OmeedEn/task-api",
+      "Developed a mobile application for early detection of skin cancer using image recognition and machine learning.",
+    technologies: ["React-Native", "TensorFlow", "FastAPI", "Pandas", "Expo", "HuggingFace"],
+    githubUrl: "https://github.com/VukIG/Melanoma-Detector",
+    featured: true,
+  },
+  {
+    title: "Cyber Chat",
+    description:
+      "Real-time chat application with user authentication and message encryption.",
+    technologies: ["Flutter", "Firebase", "RSA", "OAuth"],
+    githubUrl: "",
+    liveUrl: "https://cyberchat-378.web.app/",
+    featured: false,
+  },
+  {
+    title: "Financial Analysis Tool",
+    description:
+      "Interactive financial analysis platform with real-time data visualization and reporting features.",
+    technologies: ["Ruby", "Gem", "Rails", "SQLite", "Docker"],
+    githubUrl: "https://github.com/OmeedEn/financesite",
+    featured: false,
+  },
+  {
+    title: "Face Detection System",
+    description:
+      "RESTful API for face detection with real-time notifications",
+    technologies: ["Python", "Tensorflow", "CV2"],
+    githubUrl: "https://github.com/OmeedEn/face-detection-api",
     featured: false,
   },
 ];

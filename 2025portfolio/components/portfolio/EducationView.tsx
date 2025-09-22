@@ -109,7 +109,30 @@ export const EducationView: React.FC<EducationViewProps> = ({ onBack }) => {
                   <AnimatedChip color="green" delay={0.9}>
                     SQL
                   </AnimatedChip>
+                  <AnimatedChip color="orange" delay={1.0}>
+                    Docker
+                  </AnimatedChip>
+                  <AnimatedChip color="purple" delay={1.1}>
+                    MongoDB
+                  </AnimatedChip>
+                  <AnimatedChip color="blue" delay={1.2}>
+                    TypeScript
+                  </AnimatedChip>
                 </div>
+              </div>
+            </div>
+            <div className="mt-6">
+              <h4 className="text-white font-semibold mb-2">Team Management</h4>
+              <div className="flex flex-wrap gap-2">
+                <AnimatedChip color="blue" delay={1.3}>
+                  Jira
+                </AnimatedChip>
+                <AnimatedChip color="blue" delay={1.4}>
+                  Azure DevOps
+                </AnimatedChip>
+                <AnimatedChip color="blue" delay={1.5}>
+                  GitHub
+                </AnimatedChip>
               </div>
             </div>
           </motion.div>
