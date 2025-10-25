@@ -7,6 +7,7 @@ import { ThreeBackground } from "@/components/portfolio/ThreeBackground";
 import { GSAPBackground } from "@/components/portfolio/GSAPBackground";
 import { LaserWarBackground } from "@/components/portfolio/LaserWarBackground";
 import { DigitalBrainBackground } from "@/components/portfolio/DigitalBrainBackground";
+import { FireWaterBackground } from "@/components/portfolio/FireWaterBackground";
 import { EnhancedHomeView } from "@/components/portfolio/EnhancedHomeView";
 import { EnhancedExperienceView } from "@/components/portfolio/EnhancedExperienceView";
 import { EnhancedProjectsView } from "@/components/portfolio/EnhancedProjectsView";
@@ -65,6 +66,13 @@ function PortfolioContent() {
       {theme === "digital" && (
         <div className="absolute inset-0" style={{ zIndex: 2 }}>
           <DigitalBrainBackground />
+        </div>
+      )}
+      
+      {/* Firewater theme background */}
+      {theme === "firewater" && (
+        <div className="absolute inset-0" style={{ zIndex: 2 }}>
+          <FireWaterBackground />
         </div>
       )}
       

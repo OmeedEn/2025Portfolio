@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-type Theme = "laser" | "regular" | "digital";
+type Theme = "laser" | "regular" | "digital" | "firewater";
 
 interface ThemeContextType {
   theme: Theme;
@@ -20,7 +20,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   // Load theme from localStorage on mount
   useEffect(() => {
     const savedTheme = localStorage.getItem("portfolio-theme") as Theme;
-    if (savedTheme && ["laser", "regular", "digital"].includes(savedTheme)) {
+    if (savedTheme && ["laser", "regular", "digital", "firewater"].includes(savedTheme)) {
       setThemeState(savedTheme);
     }
   }, []);
@@ -37,6 +37,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
         newTheme = "regular";
       } else if (prev === "regular") {
         newTheme = "digital";
+      } else if (prev === "digital") {
+        newTheme = "firewater";
       } else {
         newTheme = "laser";
       }

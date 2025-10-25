@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Zap, Sparkles, Cpu } from "lucide-react";
+import { Zap, Sparkles, Cpu, Flame } from "lucide-react";
 
 export const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -41,6 +41,16 @@ export const ThemeToggle: React.FC = () => {
       shadowStyle: {
         boxShadow:
           "0 0 20px rgba(251, 146, 60, 0.5), 0 0 40px rgba(251, 146, 60, 0.3)",
+      },
+    },
+    firewater: {
+      icon: Flame,
+      label: "Fire & Water",
+      bgClass:
+        "bg-gradient-to-r from-orange-500/20 to-blue-500/20 border-2 border-purple-400/60 text-purple-200 hover:from-orange-500/30 hover:to-blue-500/30",
+      shadowStyle: {
+        boxShadow:
+          "0 0 20px rgba(255, 100, 100, 0.5), 0 0 40px rgba(100, 150, 255, 0.3)",
       },
     },
   };

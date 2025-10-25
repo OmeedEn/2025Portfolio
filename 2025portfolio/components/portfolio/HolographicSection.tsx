@@ -34,6 +34,11 @@ export const HolographicSection: React.FC<HolographicSectionProps> = ({
         glow: glowColor || "rgba(251, 146, 60, 0.6)",
         accent: "bg-orange-400",
       },
+      firewater: {
+        border: "border-purple-400",
+        glow: glowColor || "rgba(200, 100, 200, 0.6)",
+        accent: "bg-purple-400",
+      },
     },
     secondary: {
       border: "border-fuchsia-400",
@@ -44,6 +49,11 @@ export const HolographicSection: React.FC<HolographicSectionProps> = ({
         border: "border-amber-400",
         glow: glowColor || "rgba(245, 158, 11, 0.6)",
         accent: "bg-amber-400",
+      },
+      firewater: {
+        border: "border-rose-400",
+        glow: glowColor || "rgba(220, 100, 180, 0.6)",
+        accent: "bg-rose-400",
       },
     },
     accent: {
@@ -56,17 +66,29 @@ export const HolographicSection: React.FC<HolographicSectionProps> = ({
         glow: glowColor || "rgba(239, 68, 68, 0.6)",
         accent: "bg-red-400",
       },
+      firewater: {
+        border: "border-indigo-400",
+        glow: glowColor || "rgba(150, 100, 220, 0.6)",
+        accent: "bg-indigo-400",
+      },
     },
   };
 
   const styles = variantStyles[variant];
 
-  // Use digital colors if in digital theme
+  // Use theme-specific colors
   const activeBorder =
-    theme === "digital" ? styles.digital.border : styles.border;
-  const activeGlow = theme === "digital" ? styles.digital.glow : styles.glow;
+    theme === "digital" ? styles.digital.border : 
+    theme === "firewater" ? styles.firewater.border : 
+    styles.border;
+  const activeGlow = 
+    theme === "digital" ? styles.digital.glow : 
+    theme === "firewater" ? styles.firewater.glow : 
+    styles.glow;
   const activeAccent =
-    theme === "digital" ? styles.digital.accent : styles.accent;
+    theme === "digital" ? styles.digital.accent : 
+    theme === "firewater" ? styles.firewater.accent : 
+    styles.accent;
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -90,6 +112,16 @@ export const HolographicSection: React.FC<HolographicSectionProps> = ({
           repeat: -1,
           yoyo: true,
           ease: "power1.inOut",
+        });
+      }
+      // Firewater theme pulsing - dual glow effect
+      else if (theme === "firewater") {
+        gsap.to(sectionRef.current, {
+          boxShadow: `0 0 35px ${activeGlow}, 0 0 70px rgba(255, 100, 100, 0.4), 0 0 70px rgba(100, 150, 255, 0.4), inset 0 0 18px ${activeGlow}`,
+          duration: 2.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "power2.inOut",
         });
       }
     }, sectionRef);
@@ -197,6 +229,69 @@ export const HolographicSection: React.FC<HolographicSectionProps> = ({
         }
       }
     }
+    // Firewater theme - water ripples and flame flickers
+    else if (theme === "firewater") {
+      const canvas = gridRef.current;
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          let animationFrame: number;
+          let time = 0;
+
+          const resizeCanvas = () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+          };
+
+          const drawFirewaterPattern = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            time += 0.02;
+
+            // Water ripples at top
+            ctx.strokeStyle = "rgba(100, 150, 255, 0.3)";
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 3; i++) {
+              ctx.beginPath();
+              for (let x = 0; x < canvas.width; x += 5) {
+                const y = 30 + Math.sin(x * 0.02 + time + i) * 10;
+                if (x === 0) {
+                  ctx.moveTo(x, y);
+                } else {
+                  ctx.lineTo(x, y);
+                }
+              }
+              ctx.stroke();
+            }
+
+            // Flame flickers at bottom
+            ctx.strokeStyle = "rgba(255, 100, 100, 0.3)";
+            for (let i = 0; i < 4; i++) {
+              ctx.beginPath();
+              for (let x = 0; x < canvas.width; x += 5) {
+                const y = canvas.height - 30 + Math.sin(x * 0.03 + time * 2 + i) * 15;
+                if (x === 0) {
+                  ctx.moveTo(x, y);
+                } else {
+                  ctx.lineTo(x, y);
+                }
+              }
+              ctx.stroke();
+            }
+
+            animationFrame = requestAnimationFrame(drawFirewaterPattern);
+          };
+
+          resizeCanvas();
+          drawFirewaterPattern();
+          window.addEventListener("resize", resizeCanvas);
+
+          return () => {
+            window.removeEventListener("resize", resizeCanvas);
+            cancelAnimationFrame(animationFrame);
+          };
+        }
+      }
+    }
 
     return () => ctx.revert();
   }, [delay, activeGlow, theme]);
@@ -232,6 +327,15 @@ export const HolographicSection: React.FC<HolographicSectionProps> = ({
 
       {/* Digital circuit board pattern - digital theme only */}
       {theme === "digital" && (
+        <canvas
+          ref={gridRef}
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ zIndex: 1 }}
+        />
+      )}
+
+      {/* Firewater ripples and flames - firewater theme only */}
+      {theme === "firewater" && (
         <canvas
           ref={gridRef}
           className="absolute inset-0 w-full h-full pointer-events-none"
@@ -341,6 +445,50 @@ export const HolographicSection: React.FC<HolographicSectionProps> = ({
             <div
               className={`absolute bottom-0 right-0 w-2 h-2 rounded-full ${activeAccent}`}
               style={{ boxShadow: `0 0 6px ${activeGlow}` }}
+            />
+          </div>
+        </>
+      ) : theme === "firewater" ? (
+        // Firewater theme - dual-colored corners with gradient effect
+        <>
+          <div className="absolute top-0 left-0 w-7 h-7 pointer-events-none z-10">
+            <div
+              className={`absolute top-0 left-0 w-full h-0.5 ${activeAccent}`}
+              style={{ boxShadow: `0 0 10px rgba(100, 150, 255, 0.6)` }}
+            />
+            <div
+              className={`absolute top-0 left-0 w-0.5 h-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 10px rgba(100, 150, 255, 0.6)` }}
+            />
+          </div>
+          <div className="absolute top-0 right-0 w-7 h-7 pointer-events-none z-10">
+            <div
+              className={`absolute top-0 right-0 w-full h-0.5 ${activeAccent}`}
+              style={{ boxShadow: `0 0 10px rgba(100, 150, 255, 0.6)` }}
+            />
+            <div
+              className={`absolute top-0 right-0 w-0.5 h-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 10px rgba(100, 150, 255, 0.6)` }}
+            />
+          </div>
+          <div className="absolute bottom-0 left-0 w-7 h-7 pointer-events-none z-10">
+            <div
+              className={`absolute bottom-0 left-0 w-full h-0.5 ${activeAccent}`}
+              style={{ boxShadow: `0 0 10px rgba(255, 100, 100, 0.6)` }}
+            />
+            <div
+              className={`absolute bottom-0 left-0 w-0.5 h-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 10px rgba(255, 100, 100, 0.6)` }}
+            />
+          </div>
+          <div className="absolute bottom-0 right-0 w-7 h-7 pointer-events-none z-10">
+            <div
+              className={`absolute bottom-0 right-0 w-full h-0.5 ${activeAccent}`}
+              style={{ boxShadow: `0 0 10px rgba(255, 100, 100, 0.6)` }}
+            />
+            <div
+              className={`absolute bottom-0 right-0 w-0.5 h-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 10px rgba(255, 100, 100, 0.6)` }}
             />
           </div>
         </>

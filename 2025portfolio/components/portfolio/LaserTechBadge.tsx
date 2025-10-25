@@ -32,6 +32,11 @@ export const LaserTechBadge: React.FC<LaserTechBadgeProps> = ({
         border: "border-orange-300",
         glow: "rgba(251, 146, 60, 0.8)",
       },
+      firewater: {
+        bg: "from-orange-400 via-purple-400 to-blue-400",
+        border: "border-purple-300",
+        glow: "rgba(200, 100, 200, 0.8)",
+      },
     },
     magenta: {
       bg: "from-fuchsia-400 to-pink-500",
@@ -43,6 +48,11 @@ export const LaserTechBadge: React.FC<LaserTechBadgeProps> = ({
         bg: "from-amber-400 to-orange-600",
         border: "border-amber-300",
         glow: "rgba(245, 158, 11, 0.8)",
+      },
+      firewater: {
+        bg: "from-red-400 via-purple-500 to-cyan-400",
+        border: "border-pink-300",
+        glow: "rgba(220, 100, 180, 0.8)",
       },
     },
     yellow: {
@@ -56,6 +66,11 @@ export const LaserTechBadge: React.FC<LaserTechBadgeProps> = ({
         border: "border-orange-200",
         glow: "rgba(251, 146, 60, 0.8)",
       },
+      firewater: {
+        bg: "from-yellow-300 via-rose-300 to-sky-300",
+        border: "border-amber-200",
+        glow: "rgba(240, 180, 120, 0.8)",
+      },
     },
     green: {
       bg: "from-emerald-400 to-green-500",
@@ -67,6 +82,11 @@ export const LaserTechBadge: React.FC<LaserTechBadgeProps> = ({
         bg: "from-orange-500 to-red-500",
         border: "border-orange-400",
         glow: "rgba(249, 115, 22, 0.8)",
+      },
+      firewater: {
+        bg: "from-emerald-400 via-indigo-400 to-blue-400",
+        border: "border-teal-300",
+        glow: "rgba(100, 180, 200, 0.8)",
       },
     },
     red: {
@@ -80,6 +100,11 @@ export const LaserTechBadge: React.FC<LaserTechBadgeProps> = ({
         border: "border-red-400",
         glow: "rgba(239, 68, 68, 0.8)",
       },
+      firewater: {
+        bg: "from-orange-500 via-red-500 to-blue-500",
+        border: "border-rose-300",
+        glow: "rgba(255, 120, 100, 0.8)",
+      },
     },
     blue: {
       bg: "from-blue-400 to-indigo-500",
@@ -92,16 +117,20 @@ export const LaserTechBadge: React.FC<LaserTechBadgeProps> = ({
         border: "border-orange-500",
         glow: "rgba(234, 88, 12, 0.8)",
       },
+      firewater: {
+        bg: "from-cyan-400 via-violet-400 to-orange-400",
+        border: "border-indigo-300",
+        glow: "rgba(150, 100, 220, 0.8)",
+      },
     },
   };
 
   const colors = colorMap[color];
 
-  // Use digital colors if in digital theme
-  const activeBg = theme === "digital" ? colors.digital.bg : colors.bg;
-  const activeBorder =
-    theme === "digital" ? colors.digital.border : colors.border;
-  const activeGlow = theme === "digital" ? colors.digital.glow : colors.glow;
+  // Use theme-specific colors
+  const activeBg = theme === "digital" ? colors.digital.bg : theme === "firewater" ? colors.firewater.bg : colors.bg;
+  const activeBorder = theme === "digital" ? colors.digital.border : theme === "firewater" ? colors.firewater.border : colors.border;
+  const activeGlow = theme === "digital" ? colors.digital.glow : theme === "firewater" ? colors.firewater.glow : colors.glow;
 
   useEffect(() => {
     if (!badgeRef.current || !glowRef.current || theme !== "laser") return;
