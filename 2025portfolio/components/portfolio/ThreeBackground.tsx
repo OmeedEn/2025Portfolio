@@ -132,5 +132,5 @@ export const ThreeBackground: React.FC<ThreeBackgroundProps> = ({
     };
   }, [mouseRef, raycasterRef, intersectedObjectRef]);
 
-  return <div ref={mountRef} className="fixed inset-0 z-0" />;
+  return <div ref={mountRef} className="fixed inset-0" style={{ zIndex: 2 }} />;
 };

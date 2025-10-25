@@ -4,11 +4,13 @@ import React, { useRef, useState } from "react";
 import * as THREE from "three";
 import { AnimatePresence } from "framer-motion";
 import { ThreeBackground } from "@/components/portfolio/ThreeBackground";
-import { HomeView } from "@/components/portfolio/HomeView";
-import { ExperienceView } from "@/components/portfolio/ExperienceView";
-import { ProjectsView } from "@/components/portfolio/ProjectsView";
+import { GSAPBackground } from "@/components/portfolio/GSAPBackground";
+import { LaserWarBackground } from "@/components/portfolio/LaserWarBackground";
+import { EnhancedHomeView } from "@/components/portfolio/EnhancedHomeView";
+import { EnhancedExperienceView } from "@/components/portfolio/EnhancedExperienceView";
+import { EnhancedProjectsView } from "@/components/portfolio/EnhancedProjectsView";
+import { EnhancedContactView } from "@/components/portfolio/EnhancedContactView";
 import { EducationView } from "@/components/portfolio/EducationView";
-import { ContactView } from "@/components/portfolio/ContactView";
 import { useCustomScrollbar } from "@/lib/hooks/useCustomScrollbar";
 import { MouseRef } from "@/lib/three/animations";
 
@@ -31,20 +33,33 @@ export default function Portfolio() {
 
   return (
     <div className="h-screen w-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden relative">
-      <ThreeBackground
-        mouseRef={mouseRef}
-        raycasterRef={raycasterRef}
-        intersectedObjectRef={intersectedObjectRef}
-      />
+      {/* Background layers with proper z-index */}
+      <div className="absolute inset-0" style={{ zIndex: 1 }}>
+        <GSAPBackground />
+      </div>
+      <div className="absolute inset-0" style={{ zIndex: 2 }}>
+        <LaserWarBackground />
+      </div>
+      <div className="absolute inset-0" style={{ zIndex: 3 }}>
+        <ThreeBackground
+          mouseRef={mouseRef}
+          raycasterRef={raycasterRef}
+          intersectedObjectRef={intersectedObjectRef}
+        />
+      </div>
 
-      <main className="relative z-10 h-full w-full flex items-center justify-center p-4">
+      {/* Content layer - highest z-index */}
+      <main
+        className="relative h-full w-full flex items-center justify-center p-4"
+        style={{ zIndex: 50 }}
+      >
         <AnimatePresence mode="wait">
           {activeView === "home" && (
-            <HomeView key="home" onNavigate={handleNavigate} />
+            <EnhancedHomeView key="home" onNavigate={handleNavigate} />
           )}
 
           {activeView === "experience" && (
-            <ExperienceView key="experience" onBack={handleBack} />
+            <EnhancedExperienceView key="experience" onBack={handleBack} />
           )}
 
           {activeView === "education" && (
@@ -52,11 +67,11 @@ export default function Portfolio() {
           )}
 
           {activeView === "projects" && (
-            <ProjectsView key="projects" onBack={handleBack} />
+            <EnhancedProjectsView key="projects" onBack={handleBack} />
           )}
 
           {activeView === "contact" && (
-            <ContactView key="contact" onBack={handleBack} />
+            <EnhancedContactView key="contact" onBack={handleBack} />
           )}
         </AnimatePresence>
       </main>

@@ -26,28 +26,28 @@ export const AnimatedChip: React.FC<AnimatedChipProps> = ({
     }}
     className={`
       relative px-4 py-2 rounded-lg font-medium text-sm cursor-default inline-block
-      bg-gradient-to-r backdrop-blur-sm border shadow-lg
+      bg-gradient-to-r backdrop-blur-sm border-2 shadow-xl
       ${
         color === "blue"
-          ? "from-blue-500/20 to-blue-600/20 border-blue-500/30 text-blue-200"
+          ? "from-blue-500/60 to-blue-600/60 border-blue-400/60 text-white"
           : ""
       }
       ${
         color === "purple"
-          ? "from-purple-500/20 to-purple-600/20 border-purple-500/30 text-purple-200"
+          ? "from-purple-500/60 to-purple-600/60 border-purple-400/60 text-white"
           : ""
       }
       ${
         color === "green"
-          ? "from-green-500/20 to-green-600/20 border-green-500/30 text-green-200"
+          ? "from-green-500/60 to-green-600/60 border-green-400/60 text-white"
           : ""
       }
       ${
         color === "orange"
-          ? "from-orange-500/20 to-orange-600/20 border-orange-500/30 text-orange-200"
+          ? "from-orange-500/60 to-orange-600/60 border-orange-400/60 text-white"
           : ""
       }
-      hover:shadow-xl transition-shadow duration-300
+      hover:shadow-2xl transition-all duration-300
     `}
   >
     <div
@@ -55,12 +55,12 @@ export const AnimatedChip: React.FC<AnimatedChipProps> = ({
       style={{
         background: `radial-gradient(circle at center, ${
           color === "blue"
-            ? "rgba(59, 130, 246, 0.15)"
+            ? "rgba(59, 130, 246, 0.4)"
             : color === "purple"
-            ? "rgba(147, 51, 234, 0.15)"
+            ? "rgba(147, 51, 234, 0.4)"
             : color === "green"
-            ? "rgba(34, 197, 94, 0.15)"
-            : "rgba(249, 115, 22, 0.15)"
+            ? "rgba(34, 197, 94, 0.4)"
+            : "rgba(249, 115, 22, 0.4)"
         } 0%, transparent 70%)`,
       }}
     />
