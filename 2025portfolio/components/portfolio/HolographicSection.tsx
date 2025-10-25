@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface HolographicSectionProps {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ export const HolographicSection: React.FC<HolographicSectionProps> = ({
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
 
   const variantStyles = {
     primary: {
@@ -27,146 +29,358 @@ export const HolographicSection: React.FC<HolographicSectionProps> = ({
       glow: glowColor || "rgba(34, 211, 238, 0.6)",
       bg: "bg-slate-900/95",
       accent: "bg-cyan-400",
+      digital: {
+        border: "border-orange-400",
+        glow: glowColor || "rgba(251, 146, 60, 0.6)",
+        accent: "bg-orange-400",
+      },
     },
     secondary: {
       border: "border-fuchsia-400",
       glow: glowColor || "rgba(240, 101, 240, 0.6)",
       bg: "bg-slate-900/95",
       accent: "bg-fuchsia-400",
+      digital: {
+        border: "border-amber-400",
+        glow: glowColor || "rgba(245, 158, 11, 0.6)",
+        accent: "bg-amber-400",
+      },
     },
     accent: {
       border: "border-yellow-400",
       glow: glowColor || "rgba(253, 224, 71, 0.6)",
       bg: "bg-slate-900/95",
       accent: "bg-yellow-400",
+      digital: {
+        border: "border-red-400",
+        glow: glowColor || "rgba(239, 68, 68, 0.6)",
+        accent: "bg-red-400",
+      },
     },
   };
 
   const styles = variantStyles[variant];
 
+  // Use digital colors if in digital theme
+  const activeBorder =
+    theme === "digital" ? styles.digital.border : styles.border;
+  const activeGlow = theme === "digital" ? styles.digital.glow : styles.glow;
+  const activeAccent =
+    theme === "digital" ? styles.digital.accent : styles.accent;
+
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Continuous border glow pulsing only - removed entrance animation
-      gsap.to(sectionRef.current, {
-        boxShadow: `0 0 40px ${styles.glow}, 0 0 80px ${styles.glow}, inset 0 0 20px ${styles.glow}`,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
+      // Continuous border glow pulsing - laser theme only
+      if (theme === "laser") {
+        gsap.to(sectionRef.current, {
+          boxShadow: `0 0 40px ${activeGlow}, 0 0 80px ${activeGlow}, inset 0 0 20px ${activeGlow}`,
+          duration: 2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      }
+      // Digital theme pulsing
+      else if (theme === "digital") {
+        gsap.to(sectionRef.current, {
+          boxShadow: `0 0 30px ${activeGlow}, 0 0 60px ${activeGlow}, inset 0 0 15px ${activeGlow}`,
+          duration: 3,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+        });
+      }
     }, sectionRef);
 
-    // Draw static grid on canvas
-    const canvas = gridRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        const resizeCanvas = () => {
-          canvas.width = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
-          drawStaticGrid();
-        };
+    // Draw static grid on canvas - laser theme only
+    if (theme === "laser") {
+      const canvas = gridRef.current;
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          const resizeCanvas = () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            drawStaticGrid();
+          };
 
-        const drawStaticGrid = () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.strokeStyle = styles.glow;
-          ctx.lineWidth = 1;
-          ctx.globalAlpha = 0.15;
+          const drawStaticGrid = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = activeGlow;
+            ctx.lineWidth = 1;
+            ctx.globalAlpha = 0.15;
 
-          const gridSize = 20;
+            const gridSize = 20;
 
-          // Draw vertical lines
-          for (let x = 0; x < canvas.width; x += gridSize) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
-            ctx.stroke();
-          }
+            // Draw vertical lines
+            for (let x = 0; x < canvas.width; x += gridSize) {
+              ctx.beginPath();
+              ctx.moveTo(x, 0);
+              ctx.lineTo(x, canvas.height);
+              ctx.stroke();
+            }
 
-          // Draw horizontal lines
-          for (let y = 0; y < canvas.height; y += gridSize) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
-            ctx.stroke();
-          }
-        };
+            // Draw horizontal lines
+            for (let y = 0; y < canvas.height; y += gridSize) {
+              ctx.beginPath();
+              ctx.moveTo(0, y);
+              ctx.lineTo(canvas.width, y);
+              ctx.stroke();
+            }
+          };
 
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
+          resizeCanvas();
+          window.addEventListener("resize", resizeCanvas);
 
-        return () => {
-          window.removeEventListener("resize", resizeCanvas);
-        };
+          return () => {
+            window.removeEventListener("resize", resizeCanvas);
+          };
+        }
+      }
+    }
+    // Digital theme - circuit board pattern
+    else if (theme === "digital") {
+      const canvas = gridRef.current;
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          const resizeCanvas = () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            drawCircuitPattern();
+          };
+
+          const drawCircuitPattern = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = activeGlow;
+            ctx.fillStyle = activeGlow;
+            ctx.lineWidth = 2;
+            ctx.globalAlpha = 0.2;
+
+            const spacing = 40;
+
+            // Draw circuit lines
+            for (let x = 0; x < canvas.width; x += spacing) {
+              for (let y = 0; y < canvas.height; y += spacing) {
+                // Horizontal lines
+                if (Math.random() > 0.5) {
+                  ctx.beginPath();
+                  ctx.moveTo(x, y);
+                  ctx.lineTo(x + spacing, y);
+                  ctx.stroke();
+                }
+                // Vertical lines
+                if (Math.random() > 0.5) {
+                  ctx.beginPath();
+                  ctx.moveTo(x, y);
+                  ctx.lineTo(x, y + spacing);
+                  ctx.stroke();
+                }
+                // Circuit nodes
+                if (Math.random() > 0.7) {
+                  ctx.beginPath();
+                  ctx.arc(x, y, 3, 0, Math.PI * 2);
+                  ctx.fill();
+                }
+              }
+            }
+          };
+
+          resizeCanvas();
+          window.addEventListener("resize", resizeCanvas);
+
+          return () => {
+            window.removeEventListener("resize", resizeCanvas);
+          };
+        }
       }
     }
 
     return () => ctx.revert();
-  }, [delay, styles.glow]);
+  }, [delay, activeGlow, theme]);
 
   return (
     <div
       ref={sectionRef}
       className={`
         relative rounded-xl overflow-hidden
-        border-2 ${styles.border}
+        border-2 ${activeBorder}
         ${styles.bg} backdrop-blur-xl
-        shadow-2xl
+        ${theme === "laser" ? "shadow-2xl" : "shadow-lg"}
+        ${theme === "digital" ? "border-dashed" : ""}
       `}
-      style={{
-        boxShadow: `0 0 30px ${styles.glow}, 0 0 60px ${styles.glow}`,
-      }}
+      style={
+        theme === "laser"
+          ? { boxShadow: `0 0 30px ${activeGlow}, 0 0 60px ${activeGlow}` }
+          : theme === "digital"
+          ? { boxShadow: `0 0 25px ${activeGlow}, 0 0 50px rgba(0, 0, 0, 0.7)` }
+          : {
+              boxShadow: `0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)`,
+            }
+      }
     >
-      {/* Static grid background */}
-      <canvas
-        ref={gridRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ zIndex: 1 }}
-      />
+      {/* Static grid background - laser theme only */}
+      {theme === "laser" && (
+        <canvas
+          ref={gridRef}
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ zIndex: 1 }}
+        />
+      )}
 
-      {/* Corner brackets with glow */}
-      <div className="absolute top-0 left-0 w-8 h-8 pointer-events-none z-10">
-        <div
-          className={`absolute top-0 left-0 w-full h-1 ${styles.accent} shadow-lg`}
-          style={{ boxShadow: `0 0 10px ${styles.glow}` }}
+      {/* Digital circuit board pattern - digital theme only */}
+      {theme === "digital" && (
+        <canvas
+          ref={gridRef}
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ zIndex: 1 }}
         />
-        <div
-          className={`absolute top-0 left-0 w-1 h-full ${styles.accent} shadow-lg`}
-          style={{ boxShadow: `0 0 10px ${styles.glow}` }}
-        />
-      </div>
-      <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none z-10">
-        <div
-          className={`absolute top-0 right-0 w-full h-1 ${styles.accent} shadow-lg`}
-          style={{ boxShadow: `0 0 10px ${styles.glow}` }}
-        />
-        <div
-          className={`absolute top-0 right-0 w-1 h-full ${styles.accent} shadow-lg`}
-          style={{ boxShadow: `0 0 10px ${styles.glow}` }}
-        />
-      </div>
-      <div className="absolute bottom-0 left-0 w-8 h-8 pointer-events-none z-10">
-        <div
-          className={`absolute bottom-0 left-0 w-full h-1 ${styles.accent} shadow-lg`}
-          style={{ boxShadow: `0 0 10px ${styles.glow}` }}
-        />
-        <div
-          className={`absolute bottom-0 left-0 w-1 h-full ${styles.accent} shadow-lg`}
-          style={{ boxShadow: `0 0 10px ${styles.glow}` }}
-        />
-      </div>
-      <div className="absolute bottom-0 right-0 w-8 h-8 pointer-events-none z-10">
-        <div
-          className={`absolute bottom-0 right-0 w-full h-1 ${styles.accent} shadow-lg`}
-          style={{ boxShadow: `0 0 10px ${styles.glow}` }}
-        />
-        <div
-          className={`absolute bottom-0 right-0 w-1 h-full ${styles.accent} shadow-lg`}
-          style={{ boxShadow: `0 0 10px ${styles.glow}` }}
-        />
-      </div>
+      )}
+
+      {/* Corner brackets with glow - laser theme only */}
+      {theme === "laser" ? (
+        <>
+          <div className="absolute top-0 left-0 w-8 h-8 pointer-events-none z-10">
+            <div
+              className={`absolute top-0 left-0 w-full h-1 ${activeAccent} shadow-lg`}
+              style={{ boxShadow: `0 0 10px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute top-0 left-0 w-1 h-full ${activeAccent} shadow-lg`}
+              style={{ boxShadow: `0 0 10px ${activeGlow}` }}
+            />
+          </div>
+          <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none z-10">
+            <div
+              className={`absolute top-0 right-0 w-full h-1 ${activeAccent} shadow-lg`}
+              style={{ boxShadow: `0 0 10px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute top-0 right-0 w-1 h-full ${activeAccent} shadow-lg`}
+              style={{ boxShadow: `0 0 10px ${activeGlow}` }}
+            />
+          </div>
+          <div className="absolute bottom-0 left-0 w-8 h-8 pointer-events-none z-10">
+            <div
+              className={`absolute bottom-0 left-0 w-full h-1 ${activeAccent} shadow-lg`}
+              style={{ boxShadow: `0 0 10px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute bottom-0 left-0 w-1 h-full ${activeAccent} shadow-lg`}
+              style={{ boxShadow: `0 0 10px ${activeGlow}` }}
+            />
+          </div>
+          <div className="absolute bottom-0 right-0 w-8 h-8 pointer-events-none z-10">
+            <div
+              className={`absolute bottom-0 right-0 w-full h-1 ${activeAccent} shadow-lg`}
+              style={{ boxShadow: `0 0 10px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute bottom-0 right-0 w-1 h-full ${activeAccent} shadow-lg`}
+              style={{ boxShadow: `0 0 10px ${activeGlow}` }}
+            />
+          </div>
+        </>
+      ) : theme === "digital" ? (
+        // Digital theme - circuit board corners
+        <>
+          <div className="absolute top-0 left-0 w-6 h-6 pointer-events-none z-10">
+            <div
+              className={`absolute top-0 left-0 w-full h-0.5 ${activeAccent}`}
+              style={{ boxShadow: `0 0 8px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute top-0 left-0 w-0.5 h-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 8px ${activeGlow}` }}
+            />
+            {/* Circuit node */}
+            <div
+              className={`absolute top-0 left-0 w-2 h-2 rounded-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 6px ${activeGlow}` }}
+            />
+          </div>
+          <div className="absolute top-0 right-0 w-6 h-6 pointer-events-none z-10">
+            <div
+              className={`absolute top-0 right-0 w-full h-0.5 ${activeAccent}`}
+              style={{ boxShadow: `0 0 8px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute top-0 right-0 w-0.5 h-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 8px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute top-0 right-0 w-2 h-2 rounded-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 6px ${activeGlow}` }}
+            />
+          </div>
+          <div className="absolute bottom-0 left-0 w-6 h-6 pointer-events-none z-10">
+            <div
+              className={`absolute bottom-0 left-0 w-full h-0.5 ${activeAccent}`}
+              style={{ boxShadow: `0 0 8px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute bottom-0 left-0 w-0.5 h-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 8px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute bottom-0 left-0 w-2 h-2 rounded-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 6px ${activeGlow}` }}
+            />
+          </div>
+          <div className="absolute bottom-0 right-0 w-6 h-6 pointer-events-none z-10">
+            <div
+              className={`absolute bottom-0 right-0 w-full h-0.5 ${activeAccent}`}
+              style={{ boxShadow: `0 0 8px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute bottom-0 right-0 w-0.5 h-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 8px ${activeGlow}` }}
+            />
+            <div
+              className={`absolute bottom-0 right-0 w-2 h-2 rounded-full ${activeAccent}`}
+              style={{ boxShadow: `0 0 6px ${activeGlow}` }}
+            />
+          </div>
+        </>
+      ) : (
+        // Regular theme - simple corner indicators
+        <>
+          <div className="absolute top-0 left-0 w-4 h-4 pointer-events-none z-10">
+            <div
+              className={`absolute top-0 left-0 w-full h-0.5 ${activeAccent}`}
+            />
+            <div
+              className={`absolute top-0 left-0 w-0.5 h-full ${activeAccent}`}
+            />
+          </div>
+          <div className="absolute top-0 right-0 w-4 h-4 pointer-events-none z-10">
+            <div
+              className={`absolute top-0 right-0 w-full h-0.5 ${activeAccent}`}
+            />
+            <div
+              className={`absolute top-0 right-0 w-0.5 h-full ${activeAccent}`}
+            />
+          </div>
+          <div className="absolute bottom-0 left-0 w-4 h-4 pointer-events-none z-10">
+            <div
+              className={`absolute bottom-0 left-0 w-full h-0.5 ${activeAccent}`}
+            />
+            <div
+              className={`absolute bottom-0 left-0 w-0.5 h-full ${activeAccent}`}
+            />
+          </div>
+          <div className="absolute bottom-0 right-0 w-4 h-4 pointer-events-none z-10">
+            <div
+              className={`absolute bottom-0 right-0 w-full h-0.5 ${activeAccent}`}
+            />
+            <div
+              className={`absolute bottom-0 right-0 w-0.5 h-full ${activeAccent}`}
+            />
+          </div>
+        </>
+      )}
 
       {/* Title bar */}
       {title && (
