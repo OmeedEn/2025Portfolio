@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Github, ExternalLink } from "lucide-react";
 import { BackButton } from "./BackButton";
@@ -42,72 +43,97 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack }) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className={`relative rounded-xl border border-white/10 bg-white/[.02] p-6 transition-all duration-300 hover:border-blue-400/50 hover:bg-white/5 ${
+                className={`relative rounded-xl border border-white/10 bg-white/[.02] transition-all duration-300 hover:border-blue-400/50 hover:bg-white/5 overflow-hidden ${
                   project.featured ? "ring-1 ring-blue-400/30" : ""
                 }`}
               >
                 {project.featured && (
-                  <div className="absolute -top-2 -right-2">
+                  <div className="absolute top-2 right-2 z-10">
                     <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs px-2 py-1 rounded-full">
                       Featured
                     </div>
                   </div>
                 )}
 
-                <h3 className="text-xl font-bold text-white mb-3">
-                  {project.title}
-                </h3>
+                {/* Project Image */}
+                {project.image && (
+                  <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-blue-500/10 to-purple-500/10">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-300 hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  </div>
+                )}
 
-                <p className="text-gray-300 mb-4 leading-relaxed text-sm">
-                  {project.description}
-                </p>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-3">
+                    {project.title}
+                  </h3>
 
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, techIndex) => (
-                    <AnimatedChip
-                      key={techIndex}
-                      color={
-                        techIndex % 4 === 0
-                          ? "blue"
-                          : techIndex % 4 === 1
-                          ? "purple"
-                          : techIndex % 4 === 2
-                          ? "green"
-                          : "orange"
-                      }
-                      delay={techIndex * 0.05}
-                    >
-                      {tech}
-                    </AnimatedChip>
-                  ))}
-                </div>
+                  <p className="text-gray-300 mb-4 leading-relaxed text-sm">
+                    {project.description}
+                  </p>
 
-                <div className="flex gap-3 pt-2">
-                  <motion.a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-sm text-white transition-all duration-200"
-                  >
-                    <Github className="w-4 h-4" />
-                    Code
-                  </motion.a>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech, techIndex) => (
+                      <AnimatedChip
+                        key={techIndex}
+                        color={
+                          techIndex % 4 === 0
+                            ? "blue"
+                            : techIndex % 4 === 1
+                            ? "purple"
+                            : techIndex % 4 === 2
+                            ? "green"
+                            : "orange"
+                        }
+                        delay={techIndex * 0.05}
+                      >
+                        {tech}
+                      </AnimatedChip>
+                    ))}
+                  </div>
 
-                  {project.liveUrl && (
-                    <motion.a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 px-3 py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 rounded-lg text-sm text-blue-200 transition-all duration-200"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Live Demo
-                    </motion.a>
-                  )}
+                  <div className="flex gap-3 pt-2">
+                    {project.githubUrl && project.githubUrl !== "private" && project.githubUrl !== "" && (
+                      <motion.a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-sm text-white transition-all duration-200"
+                      >
+                        <Github className="w-4 h-4" />
+                        Code
+                      </motion.a>
+                    )}
+
+                    {project.githubUrl === "private" && (
+                      <div className="flex items-center gap-2 px-3 py-2 bg-gray-500/20 border border-gray-500/30 rounded-lg text-sm text-gray-400 cursor-not-allowed">
+                        <Github className="w-4 h-4" />
+                        Private
+                      </div>
+                    )}
+
+                    {project.liveUrl && (
+                      <motion.a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 px-3 py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 rounded-lg text-sm text-blue-200 transition-all duration-200"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </motion.a>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             ))}

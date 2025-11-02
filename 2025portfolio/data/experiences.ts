@@ -8,6 +8,18 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    title: "Founding Engineer",
+    company: "VoyaxHealth",
+    period: "2025 - Present",
+    description:
+      "Created a health monitoring MVP from the ground up using React, Node.js, and AWS to create a scalable solution for travelers.",
+    achievements: [
+      "Led the frontend work using Architectural patterns and best practices",
+      "Implemented endpoints by integrating with existing AWS Lambda functions to manage patient data securely",
+      "Maintained documentation and tracked progress via Jira, GitHub, and participated in weekly Agile sprints",
+    ],
+  },
+  {
     title: "Software Engineering",
     company: "Dinan Solutions",
     period: "2024 - Present",
@@ -18,18 +30,6 @@ export const experiences: Experience[] = [
       "Created an overarching design system in Figma, speeding up implementation",
       "Designed the architecture of the application using a Kubernetes model and microservices",
       "Built a robust Azure DevOps pipeline to import artifacts for private libraries reducing deployment time",
-    ],
-  },
-  {
-    title: "Founding Engineer",
-    company: "VoyaxHealth",
-    period: "2025 - Present",
-    description:
-      "Created a health monitoring MVP from the ground up using React, Node.js, and AWS to create a scalable solution for travelers.",
-    achievements: [
-      "Led the frontend work using Architectural patterns and best practices",
-      "Implemented endpoints by integrating with existing AWS Lambda functions to manage patient data securely",
-      "Maintained documentation and tracked progress via Jira, GitHub, and participated in weekly Agile sprints",
     ],
   },
   {

@@ -5,6 +5,7 @@ export interface Project {
   githubUrl: string;
   liveUrl?: string;
   featured: boolean;
+  image?: string;
 }
 
 export const projects: Project[] = [
@@ -15,6 +16,7 @@ export const projects: Project[] = [
     technologies: ["Next.js", "Hono.js", "Node.js", "Docker", "DigitalOcean"],
     githubUrl: "private",
     featured: true,
+    image: "/degreemate.svg",
   },
   {
     title: "App4Apps",
@@ -23,6 +25,7 @@ export const projects: Project[] = [
     technologies: ["Next.js", "Node.js", "Express.js", "Supabase"],
     githubUrl: "private",
     featured: false,
+    image: "/app4apps.png",
   },
   {
     title: "Skin Cancer Detection App",
@@ -31,6 +34,7 @@ export const projects: Project[] = [
     technologies: ["React-Native", "TensorFlow", "FastAPI", "Pandas", "Expo", "HuggingFace"],
     githubUrl: "https://github.com/VukIG/Melanoma-Detector",
     featured: true,
+    image: "/skin-cancer.svg",
   },
   {
     title: "Cyber Chat",
@@ -40,6 +44,7 @@ export const projects: Project[] = [
     githubUrl: "",
     liveUrl: "https://cyberchat-378.web.app/",
     featured: false,
+    image: "/cyber-chat.png",
   },
   {
     title: "Financial Analysis Tool",
@@ -48,6 +53,7 @@ export const projects: Project[] = [
     technologies: ["Ruby", "Gem", "Rails", "SQLite", "Docker"],
     githubUrl: "https://github.com/OmeedEn/financesite",
     featured: false,
+    image: "/finance.jpg",
   },
   {
     title: "Face Detection System",
@@ -56,5 +62,6 @@ export const projects: Project[] = [
     technologies: ["Python", "Tensorflow", "CV2"],
     githubUrl: "https://github.com/OmeedEn/face-detection-api",
     featured: false,
+    image: "/face-detection.jpg",
   },
 ];

@@ -1,8 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Download } from "lucide-react";
 import { NavButton } from "./NavButton";
 import { Briefcase, Code, GraduationCap, Contact } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface HomeViewProps {
   onNavigate: (view: string) => void;
@@ -81,6 +82,20 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         <NavButton view="contact" icon={Contact} onClick={onNavigate}>
           Contact
         </NavButton>
+        
+        {/* Resume Download Button */}
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <Button
+            variant="outline"
+            className="border-white/20 text-white bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 rounded-full px-6"
+            asChild
+          >
+            <a href="/resume.pdf" download="Omeed_Enshaie_Resume.pdf" className="flex items-center gap-2">
+              <Download className="w-4 h-4 text-gray-400 group-hover:text-white" />
+              Resume
+            </a>
+          </Button>
+        </motion.div>
       </motion.div>
 
       <motion.p

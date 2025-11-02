@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Mail, Linkedin, Github, Download } from "lucide-react";
 import { BackButton } from "./BackButton";
 import { contactInfo } from "@/data/contact";
 
@@ -95,6 +95,26 @@ export const ContactView: React.FC<ContactViewProps> = ({ onBack }) => {
               );
             })}
           </div>
+
+          {/* Resume Download Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="mt-10 flex justify-center"
+          >
+            <motion.a
+              href="/resume.pdf"
+              download="Omeed_Enshaie_Resume.pdf"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl text-white font-medium text-base shadow-md hover:shadow-lg transition-all duration-300"
+            >
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <Download className="w-5 h-5 relative z-10 group-hover:animate-bounce" />
+              <span className="relative z-10">Download Resume</span>
+            </motion.a>
+          </motion.div>
         </CardContent>
       </Card>
     </motion.div>
