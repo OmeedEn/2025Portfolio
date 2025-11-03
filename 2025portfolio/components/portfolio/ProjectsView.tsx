@@ -24,19 +24,19 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack }) => {
       animate="visible"
       exit="exit"
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="w-full max-w-6xl"
+      className="w-full max-w-6xl px-2 sm:px-0"
     >
-      <Card className="relative bg-white/5 backdrop-blur-lg border-white/10 h-[80vh] flex flex-col">
-        <div className="absolute top-6 left-6 z-30">
+      <Card className="relative bg-white/5 backdrop-blur-lg border-white/10 max-h-[85vh] flex flex-col">
+        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-30">
           <BackButton onClick={onBack} />
         </div>
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center pt-4">
+          <CardTitle className="text-xl sm:text-2xl font-bold text-center pt-4">
             Featured Projects
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex-grow overflow-y-auto p-8 space-y-6 custom-scrollbar">
-          <div className="grid md:grid-cols-2 gap-6">
+        <CardContent className="flex-grow overflow-y-auto p-4 sm:p-6 md:p-8 space-y-6 custom-scrollbar">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
@@ -57,7 +57,7 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack }) => {
 
                 {/* Project Image */}
                 {project.image && (
-                  <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-blue-500/10 to-purple-500/10">
+                  <div className="relative w-full h-40 sm:h-48 overflow-hidden bg-gradient-to-br from-blue-500/10 to-purple-500/10">
                     <Image
                       src={project.image}
                       alt={project.title}
@@ -69,12 +69,12 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack }) => {
                   </div>
                 )}
 
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-3">
+                <div className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">
                     {project.title}
                   </h3>
 
-                  <p className="text-gray-300 mb-4 leading-relaxed text-sm">
+                  <p className="text-gray-300 mb-3 sm:mb-4 leading-relaxed text-xs sm:text-sm">
                     {project.description}
                   </p>
 
@@ -98,24 +98,26 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack }) => {
                     ))}
                   </div>
 
-                  <div className="flex gap-3 pt-2">
-                    {project.githubUrl && project.githubUrl !== "private" && project.githubUrl !== "" && (
-                      <motion.a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-sm text-white transition-all duration-200"
-                      >
-                        <Github className="w-4 h-4" />
-                        Code
-                      </motion.a>
-                    )}
+                  <div className="flex flex-wrap gap-2 sm:gap-3 pt-2">
+                    {project.githubUrl &&
+                      project.githubUrl !== "private" &&
+                      project.githubUrl !== "" && (
+                        <motion.a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-xs sm:text-sm text-white transition-all duration-200"
+                        >
+                          <Github className="w-3 h-3 sm:w-4 sm:h-4" />
+                          Code
+                        </motion.a>
+                      )}
 
                     {project.githubUrl === "private" && (
-                      <div className="flex items-center gap-2 px-3 py-2 bg-gray-500/20 border border-gray-500/30 rounded-lg text-sm text-gray-400 cursor-not-allowed">
-                        <Github className="w-4 h-4" />
+                      <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 bg-gray-500/20 border border-gray-500/30 rounded-lg text-xs sm:text-sm text-gray-400 cursor-not-allowed">
+                        <Github className="w-3 h-3 sm:w-4 sm:h-4" />
                         Private
                       </div>
                     )}
@@ -127,9 +129,9 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onBack }) => {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 px-3 py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 rounded-lg text-sm text-blue-200 transition-all duration-200"
+                        className="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 rounded-lg text-xs sm:text-sm text-blue-200 transition-all duration-200"
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                         Live Demo
                       </motion.a>
                     )}

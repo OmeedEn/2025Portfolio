@@ -37,7 +37,7 @@ export default function Portfolio() {
         intersectedObjectRef={intersectedObjectRef}
       />
 
-      <main className="relative z-10 h-full w-full flex items-center justify-center p-4">
+      <main className="relative z-10 h-full w-full flex items-center justify-center p-2 sm:p-4">
         <AnimatePresence mode="wait">
           {activeView === "home" && (
             <HomeView key="home" onNavigate={handleNavigate} />
