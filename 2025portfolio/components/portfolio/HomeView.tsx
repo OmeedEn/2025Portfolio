@@ -24,23 +24,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="text-center max-w-4xl px-4"
     >
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.6 }}
-        className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 mb-4 sm:mb-6"
-      >
-        <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
-        <span className="text-xs sm:text-sm font-medium text-blue-200">
-          Available for new opportunities
-        </span>
-      </motion.div>
-
       <motion.h1
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.8 }}
-        className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-blue-300 bg-clip-text text-transparent"
+        className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-emerald-400 via-cyan-400 to-green-300 bg-clip-text text-transparent"
       >
         Omeed Enshaie
       </motion.h1>
@@ -49,19 +37,18 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7, duration: 0.6 }}
-        className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 font-light"
+        className="text-lg sm:text-xl md:text-2xl text-emerald-300 mb-6 sm:mb-8 font-light"
       >
-        Software Engineer & Full-Stack Developer
+        Founder, Software Engineer, Full-Stack Developer
       </motion.p>
 
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.9, duration: 0.6 }}
-        className="text-base sm:text-lg text-gray-400 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-2"
+        className="text-base sm:text-lg text-cyan-400 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-2"
       >
-        Leading high-performance teams to build scalable, user-centric
-        applications.
+        Scaling ideas into impactful software solutions
       </motion.p>
 
       <motion.div
@@ -87,7 +74,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button
             variant="outline"
-            className="border-white/20 text-white bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 rounded-full px-6"
+            className="border-emerald-400/30 text-emerald-300 bg-emerald-500/5 hover:bg-emerald-500/15 backdrop-blur-sm transition-all duration-300 rounded-full px-6"
             asChild
           >
             <a
@@ -95,7 +82,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
               download="Omeed_Enshaie_Resume.pdf"
               className="flex items-center gap-2"
             >
-              <Download className="w-4 h-4 text-gray-400 group-hover:text-white" />
+              <Download className="w-4 h-4 text-emerald-400 group-hover:text-emerald-300" />
               Resume
             </a>
           </Button>
@@ -106,7 +93,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.6 }}
-        className="text-gray-500 text-xs sm:text-sm mt-12 sm:mt-16"
+        className="text-emerald-600 text-xs sm:text-sm mt-12 sm:mt-16"
       >
         © 2025 Omeed Enshaie. Crafted with passion.
       </motion.p>

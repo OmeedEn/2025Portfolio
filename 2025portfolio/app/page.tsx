@@ -1,22 +1,17 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import * as THREE from "three";
+import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { ThreeBackground } from "@/components/portfolio/ThreeBackground";
+import { Waves } from "@/components/ui/waves";
 import { HomeView } from "@/components/portfolio/HomeView";
 import { ExperienceView } from "@/components/portfolio/ExperienceView";
 import { ProjectsView } from "@/components/portfolio/ProjectsView";
 import { EducationView } from "@/components/portfolio/EducationView";
 import { ContactView } from "@/components/portfolio/ContactView";
 import { useCustomScrollbar } from "@/lib/hooks/useCustomScrollbar";
-import { MouseRef } from "@/lib/three/animations";
 
 export default function Portfolio() {
   const [activeView, setActiveView] = useState("home");
-  const mouseRef = useRef<MouseRef>({ x: 0, y: 0 });
-  const raycasterRef = useRef<THREE.Raycaster>(new THREE.Raycaster());
-  const intersectedObjectRef = useRef<THREE.Object3D | null>(null);
 
   // Custom scrollbar styles
   useCustomScrollbar();
@@ -31,10 +26,12 @@ export default function Portfolio() {
 
   return (
     <div className="h-screen w-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden relative">
-      <ThreeBackground
-        mouseRef={mouseRef}
-        raycasterRef={raycasterRef}
-        intersectedObjectRef={intersectedObjectRef}
+      <Waves
+        strokeColor="rgba(0, 255, 157, 0.4)"
+        backgroundColor="#0a0e27"
+        pointerSize={1.2}
+        horizontalAmplitude={18}
+        verticalAmplitude={12}
       />
 
       <main className="relative z-10 h-full w-full flex items-center justify-center p-2 sm:p-4">

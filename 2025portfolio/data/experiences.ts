@@ -8,8 +8,20 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    title: "Co-Founder",
+    company: "DegreeMate",
+    period: "2025 - Present",
+    description:
+      "Creating personalized degree planning software to help students navigate their academic journeys effectively.",
+    achievements: [
+      "Content creation with students and academic advisors to ensure accurate degree planning",
+      "Collaborated with clients to gather requirements and deliver tailored solutions",
+      "Implemented responsive designs to ensure optimal user experience across devices",
+    ],
+  },
+  {
     title: "Founding Engineer",
-    company: "VoyaxHealth",
+    company: "Voyax Health",
     period: "2025 - Present",
     description:
       "Created a health monitoring MVP from the ground up using React, Node.js, and AWS to create a scalable solution for travelers.",
