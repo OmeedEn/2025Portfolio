@@ -1,102 +1,68 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Download } from "lucide-react";
-import { NavButton } from "./NavButton";
-import { Briefcase, Code, GraduationCap, Contact } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowDown } from "lucide-react";
 
-interface HomeViewProps {
-  onNavigate: (view: string) => void;
-}
-
-export const HomeView: React.FC<HomeViewProps> = ({ onNavigate }) => {
+export const HeroSection: React.FC = () => {
   return (
-    <motion.div
-      key="home"
-      variants={{
-        hidden: { opacity: 0, scale: 0.95, y: 20 },
-        visible: { opacity: 1, scale: 1, y: 0 },
-        exit: { opacity: 0, scale: 0.95, y: -20 },
-      }}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="text-center max-w-4xl px-4"
-    >
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-emerald-400 via-cyan-400 to-green-300 bg-clip-text text-transparent"
-      >
-        Omeed Enshaie
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.6 }}
-        className="text-lg sm:text-xl md:text-2xl text-emerald-300 mb-6 sm:mb-8 font-light"
-      >
-        Founder, Software Engineer, Full-Stack Developer
-      </motion.p>
-
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.9, duration: 0.6 }}
-        className="text-base sm:text-lg text-cyan-400 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-2"
-      >
-        Scaling ideas into impactful software solutions
-      </motion.p>
-
+    <section className="h-screen flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-24 relative">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.1, duration: 0.6 }}
-        className="flex flex-wrap justify-center gap-3"
-      >
-        <NavButton view="experience" icon={Briefcase} onClick={onNavigate}>
-          Experience
-        </NavButton>
-        <NavButton view="projects" icon={Code} onClick={onNavigate}>
-          Projects
-        </NavButton>
-        <NavButton view="education" icon={GraduationCap} onClick={onNavigate}>
-          Education
-        </NavButton>
-        <NavButton view="contact" icon={Contact} onClick={onNavigate}>
-          Contact
-        </NavButton>
-
-        {/* Resume Download Button */}
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button
-            variant="outline"
-            className="border-emerald-400/30 text-emerald-300 bg-emerald-500/5 hover:bg-emerald-500/15 backdrop-blur-sm transition-all duration-300 rounded-full px-6"
-            asChild
-          >
-            <a
-              href="/resume.pdf"
-              download="Omeed_Enshaie_Resume.pdf"
-              className="flex items-center gap-2"
-            >
-              <Download className="w-4 h-4 text-emerald-400 group-hover:text-emerald-300" />
-              Resume
-            </a>
-          </Button>
-        </motion.div>
-      </motion.div>
-
-      <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-        className="text-emerald-600 text-xs sm:text-sm mt-12 sm:mt-16"
+        transition={{ duration: 1.2, ease: "easeOut" }}
       >
-        © 2025 Omeed Enshaie. Crafted with passion.
-      </motion.p>
-    </motion.div>
+        <motion.h1
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="font-display text-[clamp(3rem,11vw,9rem)] font-bold leading-[0.88] tracking-[-0.03em]"
+        >
+          Omeed
+          <br />
+          Enshaie
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
+          className="mt-8 sm:mt-10 flex items-center gap-5"
+        >
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 1.0, ease: "easeOut" }}
+            className="h-px w-12 sm:w-16 bg-[#b8ff57] origin-left"
+          />
+          <p className="text-xs sm:text-sm tracking-[0.2em] uppercase text-[#888880]">
+            Founder & Software Engineer
+          </p>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="mt-3 text-xs sm:text-sm text-[#444440] tracking-wide"
+        >
+          BS Computer Science, Cal State Long Beach
+        </motion.p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-6 sm:left-10 md:left-16 lg:left-24"
+      >
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ArrowDown className="w-4 h-4 text-[#555550]" strokeWidth={1.5} />
+        </motion.div>
+      </motion.div>
+    </section>
   );
 };

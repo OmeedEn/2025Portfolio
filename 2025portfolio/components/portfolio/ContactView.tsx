@@ -1,122 +1,85 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Linkedin, Github, Download } from "lucide-react";
-import { BackButton } from "./BackButton";
-import { contactInfo } from "@/data/contact";
+import { ArrowUpRight, Download } from "lucide-react";
 
-interface ContactViewProps {
-  onBack: () => void;
-}
-
-const iconMap = {
-  Mail,
-  Linkedin,
-  Github,
-};
-
-export const ContactView: React.FC<ContactViewProps> = ({ onBack }) => {
+export const ContactSection: React.FC = () => {
   return (
-    <motion.div
-      key="contact"
-      variants={{
-        hidden: { opacity: 0, scale: 0.95, y: 20 },
-        visible: { opacity: 1, scale: 1, y: 0 },
-        exit: { opacity: 0, scale: 0.95, y: -20 },
-      }}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="w-full max-w-5xl px-2 sm:px-0"
-    >
-      <Card className="relative bg-white/5 backdrop-blur-lg border-white/10 max-h-[85vh] overflow-y-auto custom-scrollbar">
-        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-30">
-          <BackButton onClick={onBack} />
-        </div>
-        <CardHeader>
-          <CardTitle className="text-2xl sm:text-3xl font-bold text-center pt-4">
-            Let&apos;s Connect
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-4 sm:p-8 md:p-12">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-center text-gray-300 mb-8 sm:mb-10 max-w-lg mx-auto text-sm sm:text-base"
-          >
-            Ready to discuss opportunities, collaborate, or just have a chat
-            about technology.
-          </motion.p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {contactInfo.map((item, index) => {
-              const IconComponent = iconMap[item.icon as keyof typeof iconMap];
-              return (
-                <motion.a
-                  key={item.title}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className={`
-                    group relative block rounded-xl border border-white/10 bg-white/[.02] p-6 sm:p-8 text-center transition-all duration-300 
-                    hover:border-${item.color}-400/50 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-${item.color}-500/50
-                  `}
-                >
-                  <div
-                    className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{
-                      background: `radial-gradient(circle at center, ${
-                        item.color === "blue"
-                          ? "rgba(59, 130, 246, 0.1)"
-                          : item.color === "purple"
-                          ? "rgba(147, 51, 234, 0.1)"
-                          : "rgba(156, 163, 175, 0.1)"
-                      } 0%, transparent 70%)`,
-                    }}
-                  />
-                  <div className="relative">
-                    <IconComponent
-                      className={`mx-auto mb-3 sm:mb-4 h-8 w-8 sm:h-10 sm:w-10 text-${item.color}-400 transition-transform duration-300 group-hover:scale-110`}
-                    />
-                    <h3 className="text-lg sm:text-xl font-semibold text-white">
-                      {item.title}
-                    </h3>
-                    <p className={`mt-1 text-xs sm:text-sm text-${item.color}-300 break-words`}>
-                      {item.subtitle}
-                    </p>
-                  </div>
-                </motion.a>
-              );
-            })}
-          </div>
+    <section className="px-6 sm:px-10 md:px-16 lg:px-24 pt-24 sm:pt-32 pb-10 sm:pb-16">
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-xs tracking-[0.25em] uppercase text-[#555550] mb-12 sm:mb-16"
+      >
+        Connect
+      </motion.p>
 
-          {/* Resume Download Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="mt-8 sm:mt-10 flex justify-center"
-          >
-            <motion.a
-              href="/resume.pdf"
-              download="Omeed_Enshaie_Resume.pdf"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl text-white font-medium text-sm sm:text-base shadow-md hover:shadow-lg transition-all duration-300"
-            >
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <Download className="w-4 h-4 sm:w-5 sm:h-5 relative z-10 group-hover:animate-bounce" />
-              <span className="relative z-10">Download Resume</span>
-            </motion.a>
-          </motion.div>
-        </CardContent>
-      </Card>
-    </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+      >
+        <a
+          href="mailto:oenshaie@gmail.com"
+          className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] hover:text-[#b8ff57] transition-colors duration-400 inline-block"
+        >
+          oenshaie@gmail.com
+        </a>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="mt-12 sm:mt-16 flex flex-wrap gap-6 sm:gap-10"
+      >
+        <a
+          href="https://www.linkedin.com/in/omeed-enshaie/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group text-sm text-[#888880] hover:text-[#b8ff57] transition-colors duration-300 flex items-center gap-1.5"
+        >
+          LinkedIn
+          <ArrowUpRight
+            className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            strokeWidth={1.5}
+          />
+        </a>
+        <a
+          href="https://github.com/OmeedEn"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group text-sm text-[#888880] hover:text-[#b8ff57] transition-colors duration-300 flex items-center gap-1.5"
+        >
+          GitHub
+          <ArrowUpRight
+            className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            strokeWidth={1.5}
+          />
+        </a>
+        <a
+          href="/resume.pdf"
+          download="Omeed_Enshaie_Resume.pdf"
+          className="group text-sm text-[#888880] hover:text-[#b8ff57] transition-colors duration-300 flex items-center gap-1.5"
+        >
+          Resume
+          <Download
+            className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-y-0.5"
+            strokeWidth={1.5}
+          />
+        </a>
+      </motion.div>
+
+      <div className="mt-24 sm:mt-32 pt-6 border-t border-[#1a1a1a]">
+        <p className="text-[11px] text-[#2a2a28] tracking-wide">
+          2025 Omeed Enshaie
+        </p>
+      </div>
+    </section>
   );
 };
