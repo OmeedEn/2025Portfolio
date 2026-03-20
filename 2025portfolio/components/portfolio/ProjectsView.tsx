@@ -41,45 +41,42 @@ const ProjectRow: React.FC<{ project: Project; index: number }> = ({
   index,
 }) => {
   const inner = (
-    <div className="flex items-start sm:items-center justify-between gap-4 sm:gap-8">
-      <div className="flex items-start sm:items-center gap-5 sm:gap-10 md:gap-14">
-        <span className="text-xs text-[#2a2a28] font-mono tabular-nums mt-1 sm:mt-0 select-none">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <div>
-          <h3 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-[-0.02em] group-hover:text-[#b8ff57] transition-colors duration-400">
-            {project.title}
-          </h3>
-          <p className="text-xs sm:text-sm text-[#666660] mt-1 sm:mt-1.5">
-            {project.description}
-          </p>
+    <>
+      {/* Hover sweep background */}
+      <div className="absolute inset-0 bg-[#b8ff57]/[0.03] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+
+      <div className="relative flex items-start sm:items-center justify-between gap-4 sm:gap-8">
+        <div className="flex items-start sm:items-center gap-5 sm:gap-10 md:gap-14">
+          <span className="text-xs text-[#2a2a28] font-mono tabular-nums mt-1 sm:mt-0 select-none">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <div>
+            <h3 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-[-0.02em] group-hover:text-[#b8ff57] transition-colors duration-400">
+              {project.title}
+            </h3>
+            <p className="text-xs sm:text-sm text-[#666660] mt-1 sm:mt-1.5">
+              {project.description}
+            </p>
+          </div>
         </div>
+        {project.liveUrl && (
+          <ArrowUpRight
+            className="w-4 h-4 sm:w-5 sm:h-5 text-[#2a2a28] group-hover:text-[#b8ff57] transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 mt-1 sm:mt-0"
+            strokeWidth={1.5}
+          />
+        )}
       </div>
-      {project.liveUrl && (
-        <ArrowUpRight
-          className="w-4 h-4 sm:w-5 sm:h-5 text-[#2a2a28] group-hover:text-[#b8ff57] transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 mt-1 sm:mt-0"
-          strokeWidth={1.5}
-        />
-      )}
-    </div>
+    </>
   );
 
-  if (project.liveUrl) {
-    return (
-      <a
-        href={project.liveUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group block border-t border-[#1a1a1a] py-7 sm:py-10 md:py-12 transition-colors duration-500 hover:border-[#b8ff57]/20 cursor-pointer"
-      >
-        {inner}
-      </a>
-    );
-  }
-
   return (
-    <div className="group border-t border-[#1a1a1a] py-7 sm:py-10 md:py-12">
+    <a
+      href={project.liveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative block overflow-hidden border-t border-[#1a1a1a] py-7 sm:py-10 md:py-12 transition-colors duration-500 hover:border-[#b8ff57]/20 cursor-pointer"
+    >
       {inner}
-    </div>
+    </a>
   );
 };
