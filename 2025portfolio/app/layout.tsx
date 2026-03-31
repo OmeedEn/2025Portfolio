@@ -13,8 +13,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Omeed Enshaie",
-  description: "Founder & Software Engineer",
+  title: "Omeed Enshaie — Founder & Software Engineer",
+  description:
+    "Portfolio of Omeed Enshaie — Founder, Software Engineer, and Builder. BS Computer Science, Cal State Long Beach.",
 };
 
 export default function RootLayout({

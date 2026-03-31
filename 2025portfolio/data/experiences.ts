@@ -6,8 +6,13 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    title: "Chief Operating Officer",
+    company: "ETI Technology",
+    period: "Mar 2026 - Present",
+  },
+  {
     title: "Co-Founder",
-    company: "DegreeMate",
+    company: "YourAutomation",
     period: "2025 - Present",
   },
   {

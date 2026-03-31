@@ -2,7 +2,6 @@
 
 import React from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { Waves } from "@/components/ui/waves";
 import { HeroSection } from "@/components/portfolio/HomeView";
 import { ProjectsSection } from "@/components/portfolio/ProjectsView";
 import { ExperienceSection } from "@/components/portfolio/ExperienceView";
@@ -17,19 +16,11 @@ export default function Portfolio() {
   });
 
   return (
-    <div className="min-h-screen text-[#e8e8e3]">
-      <Waves
-        strokeColor="rgba(184, 255, 87, 0.03)"
-        backgroundColor="#060606"
-        pointerSize={0.6}
-        horizontalAmplitude={6}
-        verticalAmplitude={4}
-      />
-
+    <div className="min-h-screen bg-[#FAFAF7] text-[#1A1A2E]">
       {/* Scroll progress indicator */}
       <motion.div
         style={{ scaleY }}
-        className="fixed left-0 top-0 w-[2px] h-full bg-[#b8ff57] origin-top z-50"
+        className="fixed left-0 top-0 w-[3px] h-full bg-[#FF6B35] origin-top z-50 rounded-full"
       />
 
       <main className="relative z-10">
