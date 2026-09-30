@@ -9,6 +9,15 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "GlamHere",
+    description:
+      "Mobile beauty and styling application connecting users with local beauty professionals and on-demand services.",
+    liveUrl: "https://www.glamhereapp.com/",
+    tags: ["Mobile", "React Native", "UI/UX"],
+    gradient: "#f5edef",
+    image: "/glamhere.jpg",
+  },
+  {
     title: "ETI Technology",
     description:
       "Enterprise technology and innovation company delivering cutting-edge solutions for modern businesses.",
@@ -50,14 +59,6 @@ export const projects: Project[] = [
     tags: ["AI/ML", "Computer Vision", "React", "Node.js"],
     gradient: "#eeedf5",
     image: "/photoverify.svg",
-  },
-  {
-    title: "GlamHere",
-    description:
-      "Mobile beauty and styling application connecting users with local beauty professionals and on-demand services.",
-    liveUrl: "https://glamhereapp.com/",
-    tags: ["Mobile", "React Native", "UI/UX"],
-    gradient: "#f5edef",
   },
   {
     title: "AI Agents SDK",
