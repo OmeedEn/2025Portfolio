@@ -5,9 +5,20 @@ export interface Project {
   tags: string[];
   gradient: string;
   image?: string;
+  wideLogo?: boolean;
 }
 
 export const projects: Project[] = [
+  {
+    title: "Eleve Health",
+    description:
+      "Health and wellness clinic specializing in hyperbaric oxygen therapy and longevity. Leading growth.",
+    liveUrl: "https://elevehealth.com/",
+    tags: ["Growth", "Health & Wellness", "Marketing"],
+    gradient: "#000000",
+    image: "/elevehealth.jpg",
+    wideLogo: true,
+  },
   {
     title: "GlamHere",
     description:
@@ -25,6 +36,7 @@ export const projects: Project[] = [
     tags: ["Enterprise", "Technology", "Operations"],
     gradient: "#F0EDE6",
     image: "/eti.png",
+    wideLogo: true,
   },
   {
     title: "yourautomation.ai",

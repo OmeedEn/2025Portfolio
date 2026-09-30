@@ -57,7 +57,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             src={project.image}
             alt={project.title}
             className={`object-contain rounded-lg ${
-              project.image === "/eti.png"
+              project.wideLogo
                 ? "w-[80%] max-h-14"
                 : "w-12 h-12 sm:w-14 sm:h-14"
             }`}
